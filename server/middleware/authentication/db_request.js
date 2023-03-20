@@ -4,7 +4,7 @@
 // send a request to the database
 exports.sendRequest = async (req) => {
     try{
-        const model = require(PROJECT.ROOT + '/models/user__mod.js');
+        const model = require(PROJECT.ROOT + '/models/users__mod.js');
         const query = await model.getDbQuery(req);
         const connector = require(PROJECT.ROOT + '/database/connector');
         return await connector.single_request(query);

@@ -2,30 +2,15 @@
 //-------- file actions controller ----------------------------------------------------------------------------------------------*/
 
 // file upload
-exports.upload = async function f(req, res) {
+exports.post = async function f(req, res) {
     try{
-        console.log('\nfile__ctr()');
-        res.send(req.file);
-        // let file_path = req.path;
-        // let file_content = tab_form_data.file_content;
-        // let file_data;
-        //
-        // if(file_content){
-        //     file_data = file_content.replace(/^data:.+?;base64,/, "");
-        //     return new Promise((resolve, reject) => {
-        //         fs.writeFile( _public + file_path, file_data, 'base64', function (error) {
-        //             if(error){
-        //                 reject(error);
-        //             }
-        //             else {
-        //                 resolve({message: 'файл "' + tab_form_data.file_name + '" загружен на сервер'});
-        //             }
-        //         });
-        //     })
-        // }
-        // else {
-        //     new Error('получен пустой файл');
-        // }
+        let {filename, mimetype, size} = req.file;
+        req.body = {filename, mimetype, size, extension: req.file.filename.split('.')[1]};
+        const model = require(PROJECT.ROOT + '/models/files__mod.js');
+        const query = await model.getDbQuery(req);
+        const connector = require(PROJECT.ROOT + '/database/connector');
+        let result = await connector.single_request(query);
+        res.send({id: result.response.insertId, ...req.body});
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {

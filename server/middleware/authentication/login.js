@@ -55,7 +55,7 @@ exports.register = async (req, res) => {
             method: 'POST',
             body: {id, ...hashes, refreshToken: tokens.refreshToken}
         };
-        let savedToDB = await dbRequest.sendRequest(request);
+        await dbRequest.sendRequest(request);
         return res.json({id: id, ...tokens})
     }
     catch (e) {
