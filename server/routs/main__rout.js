@@ -7,10 +7,10 @@ const auth = require(PROJECT.ROOT + '/authentication/login');
 const tokenHandler = require(PROJECT.ROOT + '/authentication/token');
 
 main__rout.post("/signin", auth.login);
-main__rout.post("/signin/new_token", tokenHandler.updateTokens);
+main__rout.post("/signin/new_token", tokenHandler.verifyToken, tokenHandler.updateTokens);
 main__rout.get("/info", tokenHandler.verifyToken, auth.getCurrentUserId);
 main__rout.post("/signup", auth.register);
-main__rout.get("/logout", auth.logout);
+main__rout.get("/logout", tokenHandler.verifyToken, auth.logout);
 
 const file__ctr = require('../controllers/file__ctr');
 main__rout.post("/file/upload", tokenHandler.verifyToken, file__ctr.upload);

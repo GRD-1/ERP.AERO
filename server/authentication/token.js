@@ -32,8 +32,8 @@ exports.updateTokens = async (req, res) => {
             const credentialsFromDB = FUNCTIONS.dbResponseToCamelCase(await dbRequest.getCredentialsFromDB(req));
             if(credentialsFromDB?.refreshToken){
                 if(req.fullToken === credentialsFromDB.refreshToken){
-                    let newTokens = this.getNewTokens(credentialsFromDB);
-                    await dbRequest.saveTokenToDB(credentialsFromDB, newTokens.refreshToken);
+                    let newTokens = this.getNewTokens(credentialsFromDB.id);
+                    await dbRequest.saveTokenToDB(newTokens.refreshToken);
                     res.status(200).send({
                         success: true,
                         message: 'tokens were updated successful!',
@@ -65,13 +65,11 @@ exports.updateTokens = async (req, res) => {
 };
 
 // get a new couple of tokens
-exports.getNewTokens = (args) => {
+exports.getNewTokens = (id) => {
     try{
-        let {id, login} = args;
         let token = jwt.sign(
             {
                 id: id,
-                login: login,
             },
             PROJECT.SECRET,
             {
@@ -81,7 +79,6 @@ exports.getNewTokens = (args) => {
         let refreshToken = jwt.sign(
             {
                 id: id,
-                login: login,
             },
             PROJECT.SECRET,
             {
@@ -112,6 +109,8 @@ const decodeToken = (req) => {
                         } else {
                             req.decoded = decoded;
                             req.fullToken = token;
+                            console.log('\ndecodeToken');
+                            console.log('decoded', decoded);
                             return { success: true };
                         }
                     });

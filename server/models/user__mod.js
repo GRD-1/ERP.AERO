@@ -9,8 +9,7 @@ exports.getDbQuery = async function (req){
         switch (req.method) {
             case 'GET':
                 if(req.decoded?.id) return `SELECT * FROM erp_aero.users WHERE id = '${req.decoded.id}'`;
-                else if(req.decoded?.login) return `SELECT * FROM erp_aero.users WHERE login = '${req.decoded.login}'`;
-                return `SELECT * FROM erp_aero.users WHERE login = '${req.body.login}'`;
+                return `SELECT * FROM erp_aero.users WHERE id = '${req.body.id}'`;
             case 'POST':
                 return `INSERT INTO erp_aero.users ${data.headers} VALUES ${data.values}`;
             case 'PUT':

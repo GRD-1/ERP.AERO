@@ -18,7 +18,7 @@ exports.sendRequest = async (req) => {
 }
 
 // save a token to the database
-exports.saveTokenToDB = async (credentials, refreshToken) => {
+exports.saveTokenToDB = async (refreshToken) => {
     try{
         const req = {
             method: 'PUT',
@@ -44,27 +44,11 @@ exports.getCredentialsFromDB = async (req) => {
     try{
         let modifiedReq = {...req, method: 'GET'};
         let result = await this.sendRequest(modifiedReq);
-        return result.response.rows[0];
+        return result.response[0];
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
             e = new ERROR_LIB.SRV_ERROR(`Error in getCredentialsFromDB()!`, e.message);
-        }
-        throw e;
-    }
-}
-
-// check if the credentials are occupied
-exports.searchForCredentials = async (login, email) => {
-    try{
-        let query = `select login, email from data.users where login = '${login}' or email = '${email}'`;
-        const connector = require(PROJECT.ROOT + '/database/connector');
-        let result = await connector.single_request(query);
-        return result.response.rows[0]
-    }
-    catch (e) {
-        if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Error in checkCredentials() function!`, e.message);
         }
         throw e;
     }

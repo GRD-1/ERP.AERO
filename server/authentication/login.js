@@ -7,13 +7,13 @@ const tokenHandler = require(PROJECT.ROOT + '/authentication/token.js');
 // login user
 exports.login = async (req, res) => {
     try{
-        let {login, password} = req.body;
+        let {id, password} = req.body;
         const credentialsFromDB = await dbRequest.getCredentialsFromDB(req);
-        if (login && password) {
+        if (id && password) {
             const bcrypt = require("bcrypt");
             if (credentialsFromDB && credentialsFromDB.password === bcrypt.hashSync(password, credentialsFromDB.salt)) {
-                let tokens = tokenHandler.getNewTokens(credentialsFromDB);
-                await dbRequest.saveTokenToDB(credentialsFromDB, tokens.refreshToken);
+                let tokens = tokenHandler.getNewTokens(id);
+                await dbRequest.saveTokenToDB(tokens.refreshToken);
                 res.json({
                     success: true,
                     message: 'Authentication successful!',
@@ -44,22 +44,19 @@ exports.login = async (req, res) => {
 // registering a new account
 exports.register = async (req, res) => {
     try{
-        let {email, login, password} = req.body;
-        const credentialsFromDB = await dbRequest.searchForCredentials(login, email);
-        if (credentialsFromDB?.login === login) {
-            return res.json({message: 'This login is already occupied'})
+        let {id, password} = req.body;
+        const credentialsFromDB = await dbRequest.getCredentialsFromDB(req);
+        if (credentialsFromDB?.id === id) {
+            return res.json({message: 'This id is already occupied'})
         }
-        if (credentialsFromDB?.email === email) {
-            return res.json({message: 'This email is already occupied'})
-        }
-        let tokens = tokenHandler.getNewTokens(req.body);
+        let tokens = tokenHandler.getNewTokens(id);
         let hashes = await getPasswordHash(password);
         let request = {
             method: 'POST',
-            body: {login, email, ...hashes, refreshToken: tokens.refreshToken}
+            body: {id, ...hashes, refreshToken: tokens.refreshToken}
         };
         let savedToDB = await dbRequest.sendRequest(request);
-        return res.json({id: savedToDB.response.rows[0].id, login: savedToDB.response.rows[0].login, ...tokens})
+        return res.json({id: id, ...tokens})
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
