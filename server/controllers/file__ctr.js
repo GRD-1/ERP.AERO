@@ -4,11 +4,34 @@
 // file upload
 exports.upload = async function f(req, res) {
     try{
-        res.json({id: req.decoded?.id});
+        const fs = require('fs');
+        console.log('\nfile__ctr()');
+        console.log(req.body);
+        res.send('The file was delivered to the server!');
+        let file_path = req.path;
+        // let file_content = tab_form_data.file_content;
+        // let file_data;
+        //
+        // if(file_content){
+        //     file_data = file_content.replace(/^data:.+?;base64,/, "");
+        //     return new Promise((resolve, reject) => {
+        //         fs.writeFile( _public + file_path, file_data, 'base64', function (error) {
+        //             if(error){
+        //                 reject(error);
+        //             }
+        //             else {
+        //                 resolve({message: 'файл "' + tab_form_data.file_name + '" загружен на сервер'});
+        //             }
+        //         });
+        //     })
+        // }
+        // else {
+        //     new Error('получен пустой файл');
+        // }
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Error in info__ctr!`, e.message);
+            e = new ERROR_LIB.SRV_ERROR(`Error in file__ctr!`, e.message);
         }
         ERROR_LIB.emitter.emit('Error', e);
         res.status(500).send('#500. Internal server error!');
@@ -22,7 +45,7 @@ exports.list = async function f(req, res) {
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Error in info__ctr!`, e.message);
+            e = new ERROR_LIB.SRV_ERROR(`Error in file__ctr!`, e.message);
         }
         ERROR_LIB.emitter.emit('Error', e);
         res.status(500).send('#500. Internal server error!');
@@ -36,7 +59,7 @@ exports.delete = async function f(req, res) {
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Error in info__ctr!`, e.message);
+            e = new ERROR_LIB.SRV_ERROR(`Error in file__ctr!`, e.message);
         }
         ERROR_LIB.emitter.emit('Error', e);
         res.status(500).send('#500. Internal server error!');
@@ -50,7 +73,7 @@ exports.get = async function f(req, res) {
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Error in info__ctr!`, e.message);
+            e = new ERROR_LIB.SRV_ERROR(`Error in file__ctr!`, e.message);
         }
         ERROR_LIB.emitter.emit('Error', e);
         res.status(500).send('#500. Internal server error!');
@@ -64,7 +87,7 @@ exports.download = async function f(req, res) {
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Error in info__ctr!`, e.message);
+            e = new ERROR_LIB.SRV_ERROR(`Error in file__ctr!`, e.message);
         }
         ERROR_LIB.emitter.emit('Error', e);
         res.status(500).send('#500. Internal server error!');
@@ -78,7 +101,7 @@ exports.update = async function f(req, res) {
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Error in info__ctr!`, e.message);
+            e = new ERROR_LIB.SRV_ERROR(`Error in file__ctr!`, e.message);
         }
         ERROR_LIB.emitter.emit('Error', e);
         res.status(500).send('#500. Internal server error!');

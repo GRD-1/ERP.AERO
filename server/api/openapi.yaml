@@ -127,18 +127,14 @@ paths:
       tags:
       - storage
       description: "upload new file"
-      operationId: upload new file
       requestBody:
-        description: "file parameters"
         content:
-          application/json:
+          image/png:
             schema:
-              type: object
-              properties:
-                file:
-                  $ref: '#/components/schemas/file'
+              type: string
+              format: binary
                   
-        required: true
+
       responses:
         200:
           description: "the file was uploaded successfully"

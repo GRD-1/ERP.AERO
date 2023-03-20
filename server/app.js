@@ -8,6 +8,10 @@ const urlencodedParser = express.urlencoded({extended: false});
 const app = express();
 module.exports.app = app;
 
+// CORS
+const cors = require('cors');
+app.use(cors());
+
 // swagger UI
 const swaggerUI = require("swagger-ui-express");
 const swaggerFile = JSON.parse(fs.readFileSync(PROJECT.ROOT + "/api/openapi.json"));
