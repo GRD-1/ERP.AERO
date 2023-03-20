@@ -1,8 +1,8 @@
 
 //-------- authentication ----------------------------------------f-------------------------------------------------------------*/
 
-const dbRequest = require(PROJECT.ROOT + '/authentication/db_request.js');
-const tokenHandler = require(PROJECT.ROOT + '/authentication/token.js');
+const dbRequest = require(PROJECT.ROOT + '/middleware/authentication/db_request.js');
+const tokenHandler = require(PROJECT.ROOT + '/middleware/authentication/token.js');
 
 // login user
 exports.login = async (req, res) => {

@@ -1,7 +1,7 @@
 
 //-------- db connection module -------------------------------------------------------------------------------------------//
 
-const logger = require(PROJECT.ROOT + '/log/winston.js');
+const logger = require(PROJECT.ROOT + '/middleware/log/winston.js');
 
 // get database connection parameters
 const getCredentials = async function () {

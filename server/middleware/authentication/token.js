@@ -33,7 +33,7 @@ exports.updateTokens = async (req, res) => {
         let result = decodeToken(req);
         if(!result.success) res.status(403).json(result)
         else {
-            const dbRequest = require(PROJECT.ROOT + '/authentication/db_request.js');
+            const dbRequest = require(PROJECT.ROOT + '/middleware/authentication/db_request.js');
             const credentialsFromDB = FUNCTIONS.dbResponseToCamelCase(await dbRequest.getCredentialsFromDB(req));
             if(credentialsFromDB?.refreshToken){
                 if(req.fullToken === credentialsFromDB.refreshToken){

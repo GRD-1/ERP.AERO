@@ -32,7 +32,7 @@ PROJECT.SECRET = require(PROJECT.ROOT + '/config/credentials.js').secret;
  *  silly   - 6
  *  @type {string}
  */
-PROJECT.LOG_LEVEL = 'silly';
+PROJECT.LOG_LEVEL = 'debug';
 PROJECT.LOG_LEVELS = {
     error: 0,
     warn: 1,

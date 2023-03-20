@@ -3,7 +3,7 @@
 
 // error emitter
 const Emitter = require("events");
-const logger = require(PROJECT.ROOT + '/log/winston.js');
+const logger = require(PROJECT.ROOT + '/middleware/log/winston.js');
 ERROR_LIB.emitter = new Emitter();
 
 // errors

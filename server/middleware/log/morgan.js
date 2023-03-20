@@ -2,7 +2,7 @@
 /*-------- logger module "morgan"   https://www.npmjs.com/package/morgan --------------------------------------------------*/
 
 const morgan = require('morgan');
-const logger = require(PROJECT.ROOT + '/log/winston.js');
+const logger = require(PROJECT.ROOT + '/middleware/log/winston.js');
 
 const getMorganMiddleware = () => {
     try {

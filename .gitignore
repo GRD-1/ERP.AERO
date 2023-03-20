@@ -2,6 +2,6 @@
 node_modules/
 git
 package-lock.json
-/server/log/combine
-/server/log/errors
+/server/middleware/log/combine
+/server/middleware/log/errors
 /server/public/uploads

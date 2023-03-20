@@ -3,8 +3,8 @@
 
 const express = require("express");
 const main__rout = express.Router();
-const auth = require(PROJECT.ROOT + '/authentication/login');
-const tokenHandler = require(PROJECT.ROOT + '/authentication/token');
+const auth = require(PROJECT.ROOT + '/middleware/authentication/login');
+const tokenHandler = require(PROJECT.ROOT + '/middleware/authentication/token');
 const uploader = require(PROJECT.ROOT + '/middleware/multer');
 
 main__rout.post("/signin", auth.login);
