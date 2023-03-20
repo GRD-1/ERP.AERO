@@ -4,11 +4,9 @@
 // file upload
 exports.upload = async function f(req, res) {
     try{
-        const fs = require('fs');
         console.log('\nfile__ctr()');
-        console.log(req.body);
-        res.send('The file was delivered to the server!');
-        let file_path = req.path;
+        res.send(req.file);
+        // let file_path = req.path;
         // let file_content = tab_form_data.file_content;
         // let file_data;
         //

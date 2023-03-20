@@ -1,10 +1,11 @@
 
-//-------- routs ----------------------------------------------------------------------------------------------------------------*/
+/*-------- routs ----------------------------------------------------------------------------------------------------------------*/
 
 const express = require("express");
 const main__rout = express.Router();
 const auth = require(PROJECT.ROOT + '/authentication/login');
 const tokenHandler = require(PROJECT.ROOT + '/authentication/token');
+const uploader = require(PROJECT.ROOT + '/middleware/multer');
 
 main__rout.post("/signin", auth.login);
 main__rout.post("/signin/new_token", tokenHandler.verifyToken, tokenHandler.updateTokens);
@@ -13,7 +14,7 @@ main__rout.post("/signup", auth.register);
 main__rout.get("/logout", tokenHandler.verifyToken, auth.logout);
 
 const file__ctr = require('../controllers/file__ctr');
-main__rout.post("/file/upload", tokenHandler.verifyToken, file__ctr.upload);
+main__rout.post("/file/upload", tokenHandler.verifyToken, uploader.single('fileName'), file__ctr.upload);
 main__rout.get("/file/list", tokenHandler.verifyToken, file__ctr.list);
 main__rout.delete("/file/delete/:id", tokenHandler.verifyToken, file__ctr.delete);
 main__rout.get("/file/:id", tokenHandler.verifyToken, file__ctr.get);

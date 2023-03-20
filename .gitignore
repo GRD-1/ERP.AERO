@@ -4,3 +4,4 @@ git
 package-lock.json
 /server/log/combine
 /server/log/errors
+/server/public/uploads

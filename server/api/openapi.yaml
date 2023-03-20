@@ -11,6 +11,7 @@ servers:
 security: 
  - Bearer: []        
  
+
 paths:
   /signin:
     post:
@@ -129,12 +130,10 @@ paths:
       description: "upload new file"
       requestBody:
         content:
-          image/png:
+          multipart/form-data:
             schema:
-              type: string
-              format: binary
-                  
-
+              $ref: '#/components/schemas/file'
+              
       responses:
         200:
           description: "the file was uploaded successfully"
@@ -167,7 +166,6 @@ paths:
         schema:
           type: number
           default: 1
-        example: 1
         required: false
         
       responses:
@@ -253,10 +251,11 @@ paths:
         200:
           description: "the faile has been downloaded"
           content:
-            text/html:
+            image/png:
               schema:
                 type: string
-                format: binary            
+                format: binary
+        
         400:
           $ref: '#/components/responses/400'
         404:
@@ -275,7 +274,12 @@ paths:
         schema:
           type: number
         required: true                
-      
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/file'
+              
       responses:
         200:
           description: "the faile has been updated"
@@ -297,7 +301,7 @@ components:
           type: string
         password:
           type: string
-      example: {id: "admin@mail.ru", password: "password"}
+      example: {id: "admin", password: "password"}
       
     NewTokens:
       type: object
@@ -314,6 +318,13 @@ components:
     file:
       type: object
       properties:
+        fileName:
+          type: string
+          format: binary
+    
+    fileInfo:
+      type: object
+      properties:
         title:
           type: string
         extension:
@@ -328,7 +339,7 @@ components:
       type: array
       description: card array
       items:
-        $ref: '#/components/schemas/file'
+        $ref: '#/components/schemas/fileInfo'
         
     responseReport:
       type: object
