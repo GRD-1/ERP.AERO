@@ -14,7 +14,6 @@ exports.getDbQuery = async function (req){
                 return `INSERT INTO erp_aero.users ${data.headers} VALUES ${data.values}`;
             case 'PUT':
                 return `UPDATE erp_aero.users SET ${data} WHERE id = '${req.decoded.id}'`;
-            case 'DELETE':
         }
     }
     catch (e) {

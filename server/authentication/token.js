@@ -8,7 +8,12 @@ exports.verifyToken = (req, res, next) => {
     try{
         let result = decodeToken(req);
         if(result.success) {
-            next();
+            let isTokenTypeValid = (req.path === '/signin/new_token') ? req.decoded.tokenType === 'refresh' : req.decoded.tokenType === 'bearer';
+            if(isTokenTypeValid) {
+                next();
+            } else {
+                res.status(403).json({ success: false, message: 'Token is not valid' });
+            }
         } else {
             res.status(403).json(result);
         }
@@ -70,6 +75,7 @@ exports.getNewTokens = (id) => {
         let token = jwt.sign(
             {
                 id: id,
+                tokenType: 'bearer'
             },
             PROJECT.SECRET,
             {
@@ -79,6 +85,7 @@ exports.getNewTokens = (id) => {
         let refreshToken = jwt.sign(
             {
                 id: id,
+                tokenType: 'refresh'
             },
             PROJECT.SECRET,
             {
@@ -109,8 +116,6 @@ const decodeToken = (req) => {
                         } else {
                             req.decoded = decoded;
                             req.fullToken = token;
-                            console.log('\ndecodeToken');
-                            console.log('decoded', decoded);
                             return { success: true };
                         }
                     });

@@ -70,23 +70,14 @@ exports.register = async (req, res) => {
 // log out of the account
 exports.logout = async (req, res) => {
     try{
-        // let {email, login, password} = req.body;
-        // const credentialsFromDB = await dbRequest.searchForCredentials(login, email);
-        // if (credentialsFromDB?.login === login) {
-        //     return res.json({message: 'This login is already occupied'})
-        // }
-        // if (credentialsFromDB?.email === email) {
-        //     return res.json({message: 'This email is already occupied'})
-        // }
-        // let tokens = tokenHandler.getNewTokens(req.body);
-        // let hashes = await getPasswordHash(password);
-        // let request = {
-        //     method: 'POST',
-        //     body: {login, email, ...hashes, refreshToken: tokens.refreshToken}
-        // };
-        // let savedToDB = await dbRequest.sendRequest(request);
-        // return res.json({id: savedToDB.response.rows[0].id, login: savedToDB.response.rows[0].login, ...tokens})
-        res.json({message: 'you logged out your account'})
+        let tokens = tokenHandler.getNewTokens(req.decoded.id);
+        let request = {
+            method: 'PUT',
+            decoded: req.decoded,
+            body: {refreshToken: 'erased'},
+        };
+        await dbRequest.sendRequest(request);
+        return res.json({success: true, message: "you are logged out", ...tokens})
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
