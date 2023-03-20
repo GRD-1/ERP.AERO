@@ -1,0 +1,559 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "ERP.AERO",
+    "description": "Test task",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "/signin": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "description": "Allow users to log in, and to receive a Token parameters",
+        "operationId": "send credentials",
+        "requestBody": {
+          "description": "credentials",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/credentials"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Login Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewTokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/signin/new_token": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "description": "request of a new token couple",
+        "operationId": "get new token",
+        "responses": {
+          "200": {
+            "description": "new tokens were received",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewTokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/info": {
+      "get": {
+        "tags": [
+          "authentication"
+        ],
+        "description": "get a current user id",
+        "operationId": "get user id",
+        "responses": {
+          "200": {
+            "description": "current user id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    }
+                  },
+                  "example": {
+                    "id": 123
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "description": "a new accout registration",
+        "operationId": "new accout",
+        "requestBody": {
+          "description": "the credentials data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/credentials"
+              },
+              "example": {
+                "id": "user@mail.ru",
+                "password": "password"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "accout was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewTokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "authentication"
+        ],
+        "description": "log out of the account",
+        "operationId": "leave the account",
+        "responses": {
+          "200": {
+            "description": "you logged out your account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewTokens"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/file/upload": {
+      "post": {
+        "tags": [
+          "storage"
+        ],
+        "description": "upload new file",
+        "operationId": "upload new file",
+        "requestBody": {
+          "description": "file parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "$ref": "#/components/schemas/file"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "the file was uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/file/list": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "description": "get the file list",
+        "operationId": "get the file list",
+        "parameters": [
+          {
+            "name": "list_size",
+            "in": "query",
+            "description": "number of records on the page",
+            "schema": {
+              "type": "number",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "number of the list page",
+            "schema": {
+              "type": "number",
+              "default": 1
+            },
+            "example": 1,
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the file list was returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileList"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/file/delete/{id}": {
+      "delete": {
+        "tags": [
+          "storage"
+        ],
+        "description": "delete a specific file from database",
+        "operationId": "delete file",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "file id",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the faile has been deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/file/{id}": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "description": "get a specific file information",
+        "operationId": "get a specific file",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "file id",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the file information was returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/file"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/file/download/{id}": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "description": "download a specific file from storage",
+        "operationId": "download file",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "file id",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the faile has been downloaded",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/file/update/{id}": {
+      "put": {
+        "tags": [
+          "storage"
+        ],
+        "description": "update a specific file in storage",
+        "operationId": "update file",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "file id",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "the faile has been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "credentials": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "admin@mail.ru",
+          "password": "password"
+        }
+      },
+      "NewTokens": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "file": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "extension": {
+            "type": "string"
+          },
+          "mimeType": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "title": "picture",
+          "extension": "png",
+          "mimeType": "image",
+          "size": "1.2 mb"
+        }
+      },
+      "fileList": {
+        "type": "array",
+        "description": "card array",
+        "items": {
+          "$ref": "#/components/schemas/file"
+        }
+      },
+      "responseReport": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": 200,
+          "message": "everything was accomplished successfully"
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "#400. bad request",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "Bed request",
+              "type": "string",
+              "example": "Bed request"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "#404. the endpoint was not found",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "title": "endpoint not found",
+              "type": "string",
+              "example": "Not found"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Requests should pass an api_key header."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "authentication",
+      "description": "authentication"
+    },
+    {
+      "name": "storage",
+      "description": "file storage"
+    }
+  ]
+}
