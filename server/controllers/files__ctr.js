@@ -24,7 +24,11 @@ exports.post = async function f(req, res) {
 // get the file list
 exports.list = async function f(req, res) {
     try{
-        res.json({id: req.decoded?.id});
+        const model = require(PROJECT.ROOT + '/models/list__mod.js');
+        const query = await model.getDbQuery(req);
+        const connector = require(PROJECT.ROOT + '/database/connector');
+        let result = await connector.single_request(query);
+        res.send(result.response);
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
