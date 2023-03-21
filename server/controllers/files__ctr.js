@@ -1,14 +1,15 @@
 
 //-------- file actions controller ----------------------------------------------------------------------------------------------*/
 
+const model = require(PROJECT.ROOT + '/models/files__mod.js');
+const connector = require(PROJECT.ROOT + '/database/connector');
+
 // file upload
 exports.post = async function f(req, res) {
     try{
         let {filename, mimetype, size} = req.file;
         req.body = {filename, mimetype, size, extension: req.file.filename.split('.')[1]};
-        const model = require(PROJECT.ROOT + '/models/files__mod.js');
         const query = await model.getDbQuery(req);
-        const connector = require(PROJECT.ROOT + '/database/connector');
         let result = await connector.single_request(query);
         res.send({id: result.response.insertId, ...req.body});
     }
@@ -21,12 +22,10 @@ exports.post = async function f(req, res) {
     }
 }
 
-// get the file list
+// get a list of file
 exports.list = async function f(req, res) {
     try{
-        const model = require(PROJECT.ROOT + '/models/list__mod.js');
         const query = await model.getDbQuery(req);
-        const connector = require(PROJECT.ROOT + '/database/connector');
         let result = await connector.single_request(query);
         res.send(result.response);
     }
@@ -39,7 +38,7 @@ exports.list = async function f(req, res) {
     }
 }
 
-// delete the specific file
+// delete a specific file
 exports.delete = async function f(req, res) {
     try{
         res.json({id: req.decoded?.id});

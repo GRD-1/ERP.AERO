@@ -8,8 +8,11 @@ exports.getDbQuery = async function (req){
         const data = await queryPrams.data(req);
         switch (req.method) {
             case 'GET':
-                if(req.decoded?.id) return `SELECT * FROM erp_aero.files WHERE id = '${req.decoded.id}'`;
-                return `SELECT * FROM erp_aero.files WHERE id = '${req.body.id}'`;
+                if(req.path === '/file/list') {
+                    const {list_size = 10, page = 1} = req.query;
+                    return `SELECT * FROM erp_aero.files limit ${list_size} offset ${(page - 1) * list_size}`;
+                }
+                break
             case 'POST':
                 return `INSERT INTO erp_aero.files ${data.headers} VALUES ${data.values}`;
             case 'PUT':
