@@ -12,13 +12,13 @@ exports.getDbQuery = async function (req){
                     const {list_size = 10, page = 1} = req.query;
                     return `SELECT * FROM erp_aero.files limit ${list_size} offset ${(page - 1) * list_size}`;
                 }
-                break
+                return `SELECT * FROM erp_aero.files WHERE id = '${req.params.id}'`;
             case 'POST':
                 return `INSERT INTO erp_aero.files ${data.headers} VALUES ${data.values}`;
             case 'PUT':
-                return `UPDATE erp_aero.files SET ${data} WHERE id = '${req.decoded.id}'`;
+                return `UPDATE erp_aero.files SET ${data} WHERE id = '???'`;
             case 'DELETE':
-                // return `UPDATE erp_aero.files SET ${data} WHERE id = '${req.decoded.id}'`;
+                return `DELETE from erp_aero.files WHERE id = '${req.params.id}'`;
         }
     }
     catch (e) {

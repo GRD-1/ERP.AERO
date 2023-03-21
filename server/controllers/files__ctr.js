@@ -41,7 +41,19 @@ exports.list = async function f(req, res) {
 // delete a specific file
 exports.delete = async function f(req, res) {
     try{
-        res.json({id: req.decoded?.id});
+        req.method = 'GET';
+        let query = await model.getDbQuery(req);
+        let result = await connector.single_request(query);
+        if(result?.response[0]?.filename){
+            const fs = require('fs');
+            fs.unlinkSync(PROJECT.UPLOADS + result.response[0].filename)
+            req.method = 'DELETE';
+            query = await model.getDbQuery(req);
+            await connector.single_request(query);
+            res.json({success: true, message: `the file id = ${req.params.id} was deleted`});
+        } else {
+            res.json({success: false, message: `the file id = ${req.params.id} was not found`});
+        }
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
