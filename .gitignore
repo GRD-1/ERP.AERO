@@ -4,4 +4,3 @@ git
 package-lock.json
 /server/middleware/log/combine
 /server/middleware/log/errors
-/server/public/uploads

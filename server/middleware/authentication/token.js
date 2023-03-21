@@ -79,8 +79,7 @@ exports.getNewTokens = (id) => {
             },
             PROJECT.SECRET,
             {
-                // expiresIn: 600
-                expiresIn: '24h'
+                expiresIn: 600
             }
         );
         let refreshToken = jwt.sign(

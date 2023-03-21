@@ -113,10 +113,27 @@ exports.download = async function f(req, res) {
     }
 }
 
-// update the file
-exports.update = async function f(req, res) {
+// replace the specific file with a new one with the same id in database
+exports.put = async function f(req, res) {
     try{
-        res.json({id: req.decoded?.id});
+        if(req.params?.id){
+            req.method = 'GET';
+            let query = await model.getDbQuery(req);
+            let result = await connector.single_request(query);
+            if(result?.response[0]?.filename){
+                fs.unlinkSync(PROJECT.UPLOADS + result.response[0].filename)
+                req.method = 'PUT';
+                let {filename, mimetype, size} = req.file;
+                req.body = {filename, mimetype, size, extension: req.file.filename.split('.')[1]};
+                query = await model.getDbQuery(req);
+                await connector.single_request(query);
+                res.json({success: true, message: `the file id = ${req.params.id} was updated successfully`});
+            } else {
+                res.json({success: false, message: `the file id = ${req.params.id} was not found`});
+            }
+        } else {
+            res.json({success: false, message: `unable to get file id!`});
+        }
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
@@ -126,6 +143,3 @@ exports.update = async function f(req, res) {
         res.status(500).send('#500. Internal server error!');
     }
 }
-
-
-

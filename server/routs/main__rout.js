@@ -19,6 +19,6 @@ main__rout.get("/file/list", tokenHandler.verifyToken, files__ctr.list);
 main__rout.delete("/file/delete/:id", tokenHandler.verifyToken, files__ctr.delete);
 main__rout.get("/file/:id", tokenHandler.verifyToken, files__ctr.get);
 main__rout.get("/file/download/:id", tokenHandler.verifyToken, files__ctr.download);
-main__rout.put("/file/download/:id", tokenHandler.verifyToken, files__ctr.update);
+main__rout.put("/file/update/:id", tokenHandler.verifyToken, upload.single('fileName'), files__ctr.put);
 
 module.exports = main__rout;

@@ -16,7 +16,7 @@ exports.getDbQuery = async function (req){
             case 'POST':
                 return `INSERT INTO erp_aero.files ${data.headers} VALUES ${data.values}`;
             case 'PUT':
-                return `UPDATE erp_aero.files SET ${data} WHERE id = '???'`;
+                return `UPDATE erp_aero.files SET ${data} WHERE id = '${req.params.id}'`;
             case 'DELETE':
                 return `DELETE from erp_aero.files WHERE id = '${req.params.id}'`;
         }
