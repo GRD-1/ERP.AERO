@@ -3,6 +3,7 @@
 
 const model = require(PROJECT.ROOT + '/models/files__mod.js');
 const connector = require(PROJECT.ROOT + '/database/connector');
+const fs = require('fs');
 
 // file upload
 exports.post = async function f(req, res) {
@@ -42,17 +43,20 @@ exports.list = async function f(req, res) {
 exports.delete = async function f(req, res) {
     try{
         req.method = 'GET';
-        let query = await model.getDbQuery(req);
-        let result = await connector.single_request(query);
-        if(result?.response[0]?.filename){
-            const fs = require('fs');
-            fs.unlinkSync(PROJECT.UPLOADS + result.response[0].filename)
-            req.method = 'DELETE';
-            query = await model.getDbQuery(req);
-            await connector.single_request(query);
-            res.json({success: true, message: `the file id = ${req.params.id} was deleted`});
+        if(req.params?.id){
+            let query = await model.getDbQuery(req);
+            let result = await connector.single_request(query);
+            if(result?.response[0]?.filename){
+                fs.unlinkSync(PROJECT.UPLOADS + result.response[0].filename)
+                req.method = 'DELETE';
+                query = await model.getDbQuery(req);
+                await connector.single_request(query);
+                res.json({success: true, message: `the file id = ${req.params.id} was deleted`});
+            } else {
+                res.json({success: false, message: `the file id = ${req.params.id} was not found`});
+            }
         } else {
-            res.json({success: false, message: `the file id = ${req.params.id} was not found`});
+            res.json({success: false, message: `unable to get file id!`});
         }
     }
     catch (e) {
@@ -67,7 +71,13 @@ exports.delete = async function f(req, res) {
 // get the specific file information
 exports.get = async function f(req, res) {
     try{
-        res.json({id: req.decoded?.id});
+        if(req.params?.id){
+            const query = await model.getDbQuery(req);
+            let result = await connector.single_request(query);
+            res.send(result.response[0]);
+        } else {
+            res.json({success: false, message: `unable to get file id!`});
+        }
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
@@ -81,7 +91,18 @@ exports.get = async function f(req, res) {
 // download the file
 exports.download = async function f(req, res) {
     try{
-        res.json({id: req.decoded?.id});
+        if(req.params?.id){
+            const query = await model.getDbQuery(req);
+            let result = await connector.single_request(query);
+            if(result?.response[0]?.filename){
+                const path = require('path');
+                res.sendFile(path.resolve(`public/uploads/${result.response[0].filename}`));
+            } else {
+                res.json({success: false, message: `the file id = ${req.params.id} was not found`});
+            }
+        } else {
+            res.json({success: false, message: `unable to get file id!`});
+        }
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {
