@@ -1,4 +1,4 @@
-# The demonstrate project
+# The demo project
 This is the test Node.js project. It was created to demonstrate my base skills in Node.js coding.
 
 * This project has no user interface. All tests are supposed to be performed using Swagger UI or Postman
