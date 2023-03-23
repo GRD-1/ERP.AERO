@@ -7,7 +7,7 @@ This is the test Node.js project. It was created to demonstrate my base skills i
 
 * For the same reason I didn't clear the test database and local file storage: /server/public/uploads
 
-* To simplify deloyment, I didn't exclude the config file from the repository. It is here: /server/config
+* To simplify deployment, I didn't exclude the config file from the repository. It is here: /server/config
 
 * The database is MySQL. Dump file is here: /database_dump
 
