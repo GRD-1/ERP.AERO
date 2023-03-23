@@ -70,8 +70,10 @@ exports.updateTokens = async (req, res) => {
 };
 
 // get a new couple of tokens
-exports.getNewTokens = (id) => {
+exports.getNewTokens = (id, path) => {
     try{
+        const bearerExpiration = ( path === '/logout') ? 1 : 600;
+        const refreshExpiration = ( path === '/logout') ? 1 : '24h';
         let token = jwt.sign(
             {
                 id: id,
@@ -79,7 +81,7 @@ exports.getNewTokens = (id) => {
             },
             PROJECT.SECRET,
             {
-                expiresIn: 600
+                expiresIn: bearerExpiration
             }
         );
         let refreshToken = jwt.sign(
@@ -89,7 +91,7 @@ exports.getNewTokens = (id) => {
             },
             PROJECT.SECRET,
             {
-                expiresIn: '24h'
+                expiresIn: refreshExpiration
             }
         );
         return {token, refreshToken}

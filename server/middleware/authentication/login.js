@@ -70,7 +70,7 @@ exports.register = async (req, res) => {
 // log out of the account
 exports.logout = async (req, res) => {
     try{
-        let tokens = tokenHandler.getNewTokens(req.decoded.id);
+        let tokens = tokenHandler.getNewTokens(req.decoded.id, req.path);
         let request = {
             method: 'PUT',
             decoded: req.decoded,
