@@ -1,9 +1,14 @@
-# ERP.AERO    тестовое задание | ERP.AERO | Node.js dev
+# The demonstrate project
+This is the test Node.js project. It was created to demonstrate my base skills in Node.js coding.
 
-для упрощения тестирования к проекту подключил swagger UI, он доступен по адресу: localhost:3000/api
+* This project has no user interface. All tests are supposed to be performed using Swagger UI or Postman
 
-по той же причине не стал удалять тестовые данные из базы и тестовые картинки из локального хранилища: /public/uploads
+* To simplify testing, I added an API map to the project. It is avalible on localhost:3000/api
 
-чтобы не осложнять деплой, конфиги из репозитория не исключал, они лежат в проекте: /configs
+* For the same reason I didn't clear the test database and local file storage: /server/public/uploads
 
-дамп базы лежит в папке /database_dump. параметры подключения прописаны в конфигах сервера.
+* To simplify deloyment, I didn't exclude the config file from the repository. It is here: /server/config
+
+* The database is MySQL. Dump file is here: /database_dump
+
+* The connection parameters are already signed in the config file (/server/config). Just restore the base and run the server!
