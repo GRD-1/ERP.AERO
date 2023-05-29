@@ -1,13 +1,13 @@
 
-/*-------- global project variables ----------------------------------------------------------------------------------------*/
+/*-------- global project variables --------------------------------------------------------------*/
 
 global.PROJECT = {}
 global.ERROR_LIB = {};
 global.FUNCTIONS = {}
 
-/*-------- main folders ----------------------------------------------------------------------------------------------------*/
+/*-------- main folders --------------------------------------------------------------------------*/
 
-PROJECT.ROOT = __dirname + '\\..';
+PROJECT.ROOT = __dirname + '\/..';
 PROJECT.PUBLIC = PROJECT.ROOT + '/public/';
 PROJECT.UPLOADS = PROJECT.ROOT + '/public/uploads/';
 PROJECT.CSS = PROJECT.ROOT + '/public/css/';
@@ -15,11 +15,11 @@ PROJECT.JS = PROJECT.ROOT + '/public/js/';
 PROJECT.IMG = PROJECT.ROOT + '/public/images/';
 PROJECT.FONTS = PROJECT.ROOT + '/public/fonts/';
 
-/*-------- authentication configs ------------------------------------------------------------------------------------------*/
+/*-------- authentication configs ----------------------------------------------------------------*/
 
 PROJECT.SECRET = require(PROJECT.ROOT + '/config/credentials.js').secret;
 
-/*-------- log configs -----------------------------------------------------------------------------------------------------*/
+/*-------- log configs ---------------------------------------------------------------------------*/
 
 /**
  * available levels:
@@ -44,16 +44,16 @@ PROJECT.LOG_LEVELS = {
 }
 PROJECT.LOG_LEVEL_NUM = PROJECT.LOG_LEVELS[PROJECT.LOG_LEVEL];
 
-/*-------- error configs ---------------------------------------------------------------------------------------------------*/
+/*-------- error configs -------------------------------------------------------------------------*/
 
 require(PROJECT.ROOT + '/errors/error_lib');
 require(PROJECT.ROOT + '/errors/error_handlers');
 
-/*-------- database configs -----------------------------------------------------------------------------------------------*/
+/*-------- database configs ----------------------------------------------------------------------*/
 
 PROJECT.HOST = "localhost";
 PROJECT.DB_NAME = "erp_aero";
 
-/*-------- global functions -----------------------------------------------------------------------------------------------*/
+/*-------- global functions ----------------------------------------------------------------------*/
 
 require(PROJECT.ROOT + '/functions/global__func.js')

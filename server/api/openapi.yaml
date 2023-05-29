@@ -1,16 +1,16 @@
 openapi: "3.0.2"
 
 info:
-  title: "ERP.AERO"
+  title: "Express-server-demo"
   description: "Test task"
   version: "1.0.0"
 
 servers:
   - url: "http://localhost:3000/"
 
-security: 
- - Bearer: []        
- 
+security:
+ - Bearer: []
+
 
 paths:
   /signin:
@@ -73,7 +73,7 @@ paths:
                 properties:
                   id:
                     type: number
-                example: {id: 123}         
+                example: {id: 123}
         400:
           $ref: '#/components/responses/400'
         404:
@@ -99,7 +99,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NewTokens'          
+                $ref: '#/components/schemas/NewTokens'
         400:
           $ref: '#/components/responses/400'
         404:
@@ -133,19 +133,19 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/file'
-              
+
       responses:
         200:
           description: "the file was uploaded successfully"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseReport'                
+                $ref: '#/components/schemas/responseReport'
         400:
           $ref: '#/components/responses/400'
         404:
           $ref: '#/components/responses/404'
-          
+
   /file/list:
     get:
       tags:
@@ -159,7 +159,7 @@ paths:
         schema:
           type: number
           default: 10
-          
+
       - name: page
         in: query
         description: "number of the list page"
@@ -167,7 +167,7 @@ paths:
           type: number
           default: 1
         required: false
-        
+
       responses:
         200:
           description: the file list was returned
@@ -193,15 +193,15 @@ paths:
         description: "file id"
         schema:
           type: number
-        required: true                
-      
+        required: true
+
       responses:
         200:
           description: "the faile has been deleted"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseReport'              
+                $ref: '#/components/schemas/responseReport'
         400:
           $ref: '#/components/responses/400'
         404:
@@ -219,8 +219,8 @@ paths:
         description: "file id"
         schema:
           type: number
-        required: true                
-      
+        required: true
+
       responses:
         200:
           description: the file information was returned
@@ -245,8 +245,8 @@ paths:
         description: "file id"
         schema:
           type: number
-        required: true                
-      
+        required: true
+
       responses:
         200:
           description: "the faile has been downloaded"
@@ -255,7 +255,7 @@ paths:
               schema:
                 type: string
                 format: binary
-        
+
         400:
           $ref: '#/components/responses/400'
         404:
@@ -273,20 +273,20 @@ paths:
         description: "file id"
         schema:
           type: number
-        required: true                
+        required: true
       requestBody:
         content:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/file'
-              
+
       responses:
         200:
           description: "the faile has been updated"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseReport'  
+                $ref: '#/components/schemas/responseReport'
         400:
           $ref: '#/components/responses/400'
         404:
@@ -302,7 +302,7 @@ components:
         password:
           type: string
       example: {id: "admin", password: "password"}
-      
+
     NewTokens:
       type: object
       properties:
@@ -311,17 +311,17 @@ components:
         message:
           type: string
         token:
-          type: string                    
+          type: string
         refreshToken:
-          type: string        
-          
+          type: string
+
     file:
       type: object
       properties:
         fileName:
           type: string
           format: binary
-    
+
     fileInfo:
       type: object
       properties:
@@ -332,23 +332,23 @@ components:
         mimeType:
           type: string
         size:
-          type: string                  
-      example: {title: "picture", extension: "png", mimeType: "image", size: "1.2 mb"}   
-      
+          type: string
+      example: {title: "picture", extension: "png", mimeType: "image", size: "1.2 mb"}
+
     fileList:
       type: array
       description: card array
       items:
         $ref: '#/components/schemas/fileInfo'
-        
+
     responseReport:
       type: object
       properties:
         status:
           type: number
         message:
-          type: string  
-      example: {status: 200, message: "everything was accomplished successfully"}    
+          type: string
+      example: {status: 200, message: "everything was accomplished successfully"}
 
   responses:
     400:
