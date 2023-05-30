@@ -1,6 +1,6 @@
 .idea/
-node_modules/
 git
 package-lock.json
+server/node_modules/
 /server/middleware/log/combine
 /server/middleware/log/errors
