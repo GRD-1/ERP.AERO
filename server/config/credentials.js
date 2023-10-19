@@ -4,11 +4,11 @@
 // main database
 exports.database = [
     {
-        "host": "localhost",
+        "host": "mysqldb",
         "port": 3306,
-        "database": "erp_aero",
-        "user": "developer",
-        "password": "telapia"
+        "database": "express_server_demo_db",
+        "user": "root",
+        "password": "latepia"
     },
 ]
 

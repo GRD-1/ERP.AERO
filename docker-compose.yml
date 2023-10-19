@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysqldb:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: latepia
+      MYSQL_DATABASE: express_server_demo_db
+      MYSQL_USER: developer
+      MYSQL_PASSWORD: telapia
+    ports:
+      - "3306:3306"
+
+  node:
+    image: nodeapp
+    volumes:
+      - ./server:/projectFiles
+      - /projectFiles/node_modules
+
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mysqldb

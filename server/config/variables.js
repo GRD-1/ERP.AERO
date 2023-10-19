@@ -51,8 +51,8 @@ require(PROJECT.ROOT + '/errors/error_handlers');
 
 /*-------- database configs ----------------------------------------------------------------------*/
 
-PROJECT.HOST = "localhost";
-PROJECT.DB_NAME = "erp_aero";
+PROJECT.HOST = "mysqldb";
+PROJECT.DB_NAME = "express_server_demo_db";
 
 /*-------- global functions ----------------------------------------------------------------------*/
 
