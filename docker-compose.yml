@@ -7,19 +7,33 @@ services:
       MYSQL_DATABASE: express_server_demo_db
       MYSQL_USER: developer
       MYSQL_PASSWORD: telapia
+      MODE: RESTORE
+      RESTORE_DIR: /backup
     ports:
       - "3306:3306"
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./data/backup:/backup
+
+  backup:
+    image: confirm/mysql-backup
+    volumes:
+      - ./db/backup:/backup
+    links:
+      - mysqldb
+    restart: "no"
+    depends_on:
+      - mysqldb
 
   node:
     image: nodeapp
-    volumes:
-      - ./server:/projectFiles
-      - /projectFiles/node_modules
-
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - '3000:3000'
+    volumes:
+      - ./server:/projectFiles
+      - /projectFiles/node_modules
     depends_on:
       - mysqldb
