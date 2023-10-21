@@ -1,3 +1,8 @@
+# if the folder /db/data is empty, docker will restore database from the dump file ./db/restore/*.sql
+# if there is no dump file in ./db/restore/*.sql, docker will create an empty database
+# After all containers are started, CRON will create a dump file from the running database
+# CRON will create the new dump file every day at 00:00 am.
+
 version: '3'
 services:
   mysqldb:
@@ -7,8 +12,6 @@ services:
       MYSQL_DATABASE: express_server_demo_db
       MYSQL_USER: developer
       MYSQL_PASSWORD: telapia
-      MODE: RESTORE
-      RESTORE_DIR: ./db/backup
     ports:
       - "3306:3306"
     volumes:
@@ -25,7 +28,8 @@ services:
       - MYSQL_HOST=mysqldb
       - MYSQL_PORT=3306
       - TIMEOUT=10s
-      - INIT_BACKUP=1
+      - INIT_RESTORE_LATEST=1
+      - EXIT_BACKUP=1
     restart: always
     volumes:
       - ./db/backup:/backup
