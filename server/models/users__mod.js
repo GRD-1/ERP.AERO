@@ -8,12 +8,12 @@ exports.getDbQuery = async function (req){
         const data = await queryPrams.data(req);
         switch (req.method) {
             case 'GET':
-                if(req.decoded?.id) return `SELECT * FROM erp_aero.users WHERE id = '${req.decoded.id}'`;
-                return `SELECT * FROM erp_aero.users WHERE id = '${req.body.id}'`;
+                if(req.decoded?.id) return `SELECT * FROM ${PROJECT.DB_NAME}.users WHERE id = '${req.decoded.id}'`;
+                return `SELECT * FROM ${PROJECT.DB_NAME}.users WHERE id = '${req.body.id}'`;
             case 'POST':
-                return `INSERT INTO erp_aero.users ${data.headers} VALUES ${data.values}`;
+                return `INSERT INTO ${PROJECT.DB_NAME}.users ${data.headers} VALUES ${data.values}`;
             case 'PUT':
-                return `UPDATE erp_aero.users SET ${data} WHERE id = '${req.decoded.id}'`;
+                return `UPDATE ${PROJECT.DB_NAME}.users SET ${data} WHERE id = '${req.decoded.id}'`;
         }
     }
     catch (e) {

@@ -7,7 +7,7 @@ const logger = require(PROJECT.ROOT + '/middleware/log/winston.js');
 const getCredentials = async function () {
     try {
         const credentials = require(PROJECT.ROOT + '/config/credentials.js').database;
-        return credentials.find(item => item['host'] === PROJECT.HOST && item['database'] === PROJECT.DB_NAME);
+        return credentials.find(item => item['host'] === PROJECT.DB_HOST && item['database'] === PROJECT.DB_NAME);
     }
     catch (e) {
         if(!(e.name in ERROR_LIB)) {

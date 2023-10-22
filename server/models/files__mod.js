@@ -1,6 +1,4 @@
 
-//-------- files data model --------------------------------------------------------------------------------------------------*/
-
 // the function returns a query to the database
 exports.getDbQuery = async function (req){
     try{
@@ -10,15 +8,15 @@ exports.getDbQuery = async function (req){
             case 'GET':
                 if(req.path === '/file/list') {
                     const {list_size = 10, page = 1} = req.query;
-                    return `SELECT * FROM erp_aero.files limit ${list_size} offset ${(page - 1) * list_size}`;
+                    return `SELECT * FROM ${PROJECT.DB_NAME}.files limit ${list_size} offset ${(page - 1) * list_size}`;
                 }
-                return `SELECT * FROM erp_aero.files WHERE id = '${req.params.id}'`;
+                return `SELECT * FROM ${PROJECT.DB_NAME}.files WHERE id = '${req.params.id}'`;
             case 'POST':
-                return `INSERT INTO erp_aero.files ${data.headers} VALUES ${data.values}`;
+                return `INSERT INTO ${PROJECT.DB_NAME}.files ${data.headers} VALUES ${data.values}`;
             case 'PUT':
-                return `UPDATE erp_aero.files SET ${data} WHERE id = '${req.params.id}'`;
+                return `UPDATE ${PROJECT.DB_NAME}.files SET ${data} WHERE id = '${req.params.id}'`;
             case 'DELETE':
-                return `DELETE from erp_aero.files WHERE id = '${req.params.id}'`;
+                return `DELETE from ${PROJECT.DB_NAME}.files WHERE id = '${req.params.id}'`;
         }
     }
     catch (e) {

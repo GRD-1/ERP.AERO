@@ -17,6 +17,7 @@ PROJECT.FONTS = PROJECT.ROOT + '/public/fonts/';
 
 /*-------- authentication configs ----------------------------------------------------------------*/
 
+PROJECT.CREDENTIALS = require(PROJECT.ROOT + '/config/credentials.js');
 PROJECT.SECRET = require(PROJECT.ROOT + '/config/credentials.js').secret;
 
 /*-------- log configs ---------------------------------------------------------------------------*/
@@ -51,7 +52,7 @@ require(PROJECT.ROOT + '/errors/error_handlers');
 
 /*-------- database configs ----------------------------------------------------------------------*/
 
-PROJECT.HOST = "mysqldb";
+PROJECT.DB_HOST = "mysqldb";
 PROJECT.DB_NAME = "express_server_demo_db";
 
 /*-------- global functions ----------------------------------------------------------------------*/
