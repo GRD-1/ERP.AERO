@@ -13,11 +13,12 @@ This is the demo Node.js project. It was created to demonstrate my base skills i
 ## Environment
 
 - OS Ubuntu-22.04
-- Node.js 18.16.0
-- npm 9.5.1
 - Docker 24.0.2
 - Docker-compose 2.18.1
+- Node.js 18.16.0
+- npm 9.5.1
 - mysql 5.7
+- fradelg/mysql-cron-backup
 - npm-cors 2.8.5
 - npm-bcrypt 5.1.0,
 - npm-jsonwebtoken 9.0.0, 
@@ -65,5 +66,3 @@ This is the demo Node.js project. It was created to demonstrate my base skills i
 * when the project terminates it also creates a new backup file in db/backup
 * if the folder /db/data is empty, docker will restore database from the dump file ./db/backup
 * if there is no dump file in ./db/backup, docker will create an empty database
-
-
