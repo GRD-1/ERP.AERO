@@ -7,11 +7,8 @@ version: '3'
 services:
   mysqldb:
     image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: latepia
-      MYSQL_DATABASE: express_server_demo_db
-      MYSQL_USER: developer
-      MYSQL_PASSWORD: telapia
+    env_file:
+      - server/config/mysql-prod.env
     ports:
       - "3306:3306"
     volumes:
@@ -21,15 +18,12 @@ services:
   dbBackup:
     image: fradelg/mysql-cron-backup
     environment:
-      - MYSQL_USER=root
-      - MYSQL_PASS=latepia
-      - MYSQL_DB=express_server_demo_db
       - CRON_TIME=0 0 * * *
-      - MYSQL_HOST=mysqldb
-      - MYSQL_PORT=3306
       - TIMEOUT=10s
       - INIT_RESTORE_LATEST=1
       - EXIT_BACKUP=1
+    env_file:
+      - server/config/mysql-prod.env
     restart: always
     volumes:
       - ./db/backup:/backup
@@ -38,6 +32,9 @@ services:
 
   node:
     image: nodeapp
+    env_file:
+      - server/config/mysql-prod.env
+      - server/config/secret-prod.env
     build:
       context: .
       dockerfile: ./Dockerfile
