@@ -40,9 +40,9 @@ This is the demo Node.js project. It was created to demonstrate my base skills i
 
 ## Settings
 
-* the environment variables are here: server/config/settings.js
+* the environment variables are here: server/config/
 * To demonstrate the app abilities I didn't clear the test database and local file storage: /server/public/uploads/
-* To simplify deployment, I didn't exclude the credentials file from the repository. It is here: /server/config/credentials.js
+* To simplify deployment, I didn't exclude the .env files from the repository. It is here: /server/config/env/
 * The database dump file is here: /database_dump.
 
 ## Launch
