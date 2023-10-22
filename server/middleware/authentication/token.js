@@ -79,7 +79,7 @@ exports.getNewTokens = (id, path) => {
                 id: id,
                 tokenType: 'bearer'
             },
-            PROJECT.SECRET,
+            process.env.SECRET,
             {
                 expiresIn: bearerExpiration
             }
@@ -89,7 +89,7 @@ exports.getNewTokens = (id, path) => {
                 id: id,
                 tokenType: 'refresh'
             },
-            PROJECT.SECRET,
+            process.env.SECRET,
             {
                 expiresIn: refreshExpiration
             }
@@ -112,7 +112,7 @@ const decodeToken = (req) => {
             token = token.slice(7, token.length);
         }
         if(token) {
-            return jwt.verify(token, PROJECT.SECRET, (err, decoded) => {
+            return jwt.verify(token, process.env.SECRET, (err, decoded) => {
                         if (err) {
                             return { success: false, message: 'Token is not valid' };
                         } else {

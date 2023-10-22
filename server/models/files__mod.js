@@ -8,15 +8,15 @@ exports.getDbQuery = async function (req){
             case 'GET':
                 if(req.path === '/file/list') {
                     const {list_size = 10, page = 1} = req.query;
-                    return `SELECT * FROM ${PROJECT.DB_NAME}.files limit ${list_size} offset ${(page - 1) * list_size}`;
+                    return `SELECT * FROM ${process.env.MYSQL_DATABASE}.files limit ${list_size} offset ${(page - 1) * list_size}`;
                 }
-                return `SELECT * FROM ${PROJECT.DB_NAME}.files WHERE id = '${req.params.id}'`;
+                return `SELECT * FROM ${process.env.MYSQL_DATABASE}.files WHERE id = '${req.params.id}'`;
             case 'POST':
-                return `INSERT INTO ${PROJECT.DB_NAME}.files ${data.headers} VALUES ${data.values}`;
+                return `INSERT INTO ${process.env.MYSQL_DATABASE}.files ${data.headers} VALUES ${data.values}`;
             case 'PUT':
-                return `UPDATE ${PROJECT.DB_NAME}.files SET ${data} WHERE id = '${req.params.id}'`;
+                return `UPDATE ${process.env.MYSQL_DATABASE}.files SET ${data} WHERE id = '${req.params.id}'`;
             case 'DELETE':
-                return `DELETE from ${PROJECT.DB_NAME}.files WHERE id = '${req.params.id}'`;
+                return `DELETE from ${process.env.MYSQL_DATABASE}.files WHERE id = '${req.params.id}'`;
         }
     }
     catch (e) {

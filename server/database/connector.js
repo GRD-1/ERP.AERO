@@ -5,15 +5,12 @@ const logger = require(PROJECT.ROOT + '/middleware/log/winston.js');
 
 // get database connection parameters
 const getCredentials = async function () {
-    try {
-        const credentials = require(PROJECT.ROOT + '/config/credentials.js').database;
-        return credentials.find(item => item['host'] === PROJECT.DB_HOST && item['database'] === PROJECT.DB_NAME);
-    }
-    catch (e) {
-        if(!(e.name in ERROR_LIB)) {
-            e = new ERROR_LIB.SRV_ERROR(`Unable to get database connection parameters`, e.message);
-        }
-        throw e;
+    return  {
+        host: process.env.MYSQL_HOST,
+        port: process.env.MYSQL_PORT,
+        database: process.env.MYSQL_DATABASE,
+        user: process.env.MYSQL_ROOT_USER,
+        password: process.env.MYSQL_ROOT_PASSWORD,
     }
 }
 

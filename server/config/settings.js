@@ -15,11 +15,6 @@ PROJECT.JS = PROJECT.ROOT + '/public/js/';
 PROJECT.IMG = PROJECT.ROOT + '/public/images/';
 PROJECT.FONTS = PROJECT.ROOT + '/public/fonts/';
 
-/*-------- authentication configs ----------------------------------------------------------------*/
-
-PROJECT.CREDENTIALS = require(PROJECT.ROOT + '/config/credentials.js');
-PROJECT.SECRET = require(PROJECT.ROOT + '/config/credentials.js').secret;
-
 /*-------- log configs ---------------------------------------------------------------------------*/
 
 /**
@@ -49,11 +44,6 @@ PROJECT.LOG_LEVEL_NUM = PROJECT.LOG_LEVELS[PROJECT.LOG_LEVEL];
 
 require(PROJECT.ROOT + '/errors/error_lib');
 require(PROJECT.ROOT + '/errors/error_handlers');
-
-/*-------- database configs ----------------------------------------------------------------------*/
-
-PROJECT.DB_HOST = "mysqldb";
-PROJECT.DB_NAME = "express_server_demo_db";
 
 /*-------- global functions ----------------------------------------------------------------------*/
 

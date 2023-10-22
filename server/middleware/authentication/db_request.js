@@ -25,7 +25,7 @@ exports.saveTokenToDB = async (refreshToken) => {
             body: {refreshToken: refreshToken},
         }
         const jwt = require('jsonwebtoken');
-        jwt.verify(refreshToken, PROJECT.SECRET, (err, decoded) => {
+        jwt.verify(refreshToken, process.env.SECRET, (err, decoded) => {
             if (err) throw err
             else req.decoded = decoded;
         });

@@ -20,13 +20,14 @@ This is the demo Node.js project. It was created to demonstrate my base skills i
 - mysql 5.7
 - fradelg/mysql-cron-backup
 - npm-cors 2.8.5
-- npm-bcrypt 5.1.0,
-- npm-jsonwebtoken 9.0.0, 
-- npm-winston 3.8.2,
-- npm-morgan 1.10.0,
-- morgan-body 2.6.8,
-- npm-multer 1.4.5-lts.1,
-- npm-mysql2 3.2.0,
+- npm-bcrypt 5.1.0
+- npm-jsonwebtoken 9.0.0
+- npm-winston 3.8.2
+- npm-morgan 1.10.0
+- morgan-body 2.6.8
+- npm-multer 1.4.5-lts.1
+- npm-mysql2 3.2.0 
+- dotenv 16.3.1
 
 ## Deploy <a id="deploy"></a>
 
@@ -39,7 +40,7 @@ This is the demo Node.js project. It was created to demonstrate my base skills i
 
 ## Settings
 
-* the environment variables are here: server/config/variables.js
+* the environment variables are here: server/config/settings.js
 * To demonstrate the app abilities I didn't clear the test database and local file storage: /server/public/uploads/
 * To simplify deployment, I didn't exclude the credentials file from the repository. It is here: /server/config/credentials.js
 * The database dump file is here: /database_dump.

@@ -1,7 +1,7 @@
 
 //-------- app.js -------------------------------------------------------------------------------------------------------*/
 
-require('./config/variables');
+require('./config/settings');
 const express = require("express");
 const fs = require('fs');
 const urlencodedParser = express.urlencoded({extended: false});

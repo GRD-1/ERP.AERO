@@ -8,12 +8,12 @@ exports.getDbQuery = async function (req){
         const data = await queryPrams.data(req);
         switch (req.method) {
             case 'GET':
-                if(req.decoded?.id) return `SELECT * FROM ${PROJECT.DB_NAME}.users WHERE id = '${req.decoded.id}'`;
-                return `SELECT * FROM ${PROJECT.DB_NAME}.users WHERE id = '${req.body.id}'`;
+                if(req.decoded?.id) return `SELECT * FROM ${process.env.MYSQL_DATABASE}.users WHERE id = '${req.decoded.id}'`;
+                return `SELECT * FROM ${process.env.MYSQL_DATABASE}.users WHERE id = '${req.body.id}'`;
             case 'POST':
-                return `INSERT INTO ${PROJECT.DB_NAME}.users ${data.headers} VALUES ${data.values}`;
+                return `INSERT INTO ${process.env.MYSQL_DATABASE}.users ${data.headers} VALUES ${data.values}`;
             case 'PUT':
-                return `UPDATE ${PROJECT.DB_NAME}.users SET ${data} WHERE id = '${req.decoded.id}'`;
+                return `UPDATE ${process.env.MYSQL_DATABASE}.users SET ${data} WHERE id = '${req.decoded.id}'`;
         }
     }
     catch (e) {
