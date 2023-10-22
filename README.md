@@ -17,7 +17,8 @@ This is the demo Node.js project. It was created to demonstrate my base skills i
 - Docker 24.0.2
 - Docker-compose 2.18.1
 - mysql 5.7
-- npm-cors 2.8.5"
+- npm-cors 2.8.5
+- npm-bcrypt 5.1.0,
 - npm-jsonwebtoken 9.0.0, 
 - npm-winston 3.8.2,
 - npm-morgan 1.10.0,
@@ -55,3 +56,13 @@ This is the demo Node.js project. It was created to demonstrate my base skills i
 
 * After the application is launched it is available at http://localhost:3000/api
 * This project has no user interface. It is assumed that all actions performed using [API](#api) or Postman
+
+## Database
+
+* when the project starts, the database will be automatically restored from the backup: db/backup
+* after the project is launched, CRON will create a new database backup every day at 00:00 am
+* when the project terminates it also creates a new backup file in db/backup
+* if the folder /db/data is empty, docker will restore database from the dump file ./db/backup
+* if there is no dump file in ./db/backup, docker will create an empty database
+
+

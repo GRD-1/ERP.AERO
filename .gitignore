@@ -4,4 +4,4 @@ package-lock.json
 server/node_modules/
 /server/middleware/log/combine
 /server/middleware/log/errors
-/db/data
+/db
